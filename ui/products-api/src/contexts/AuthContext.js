@@ -24,7 +24,6 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
-    // Simulação de login
     const users = JSON.parse(localStorage.getItem('users') || '[]');
     const foundUser = users.find((u) => u.email === email && u.password === password);
     if (foundUser) {

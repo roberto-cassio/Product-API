@@ -9,6 +9,7 @@ import { PersonAdd, Visibility, VisibilityOff } from '@mui/icons-material';
 
 const Register = () => {
   const [name, setName] = useState('');
+  const [surname, setSurname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -25,7 +26,8 @@ const Register = () => {
     }
     
     setLoading(true);
-    const success = await register(name, email, password);
+  const fullName = `${name} ${surname}`.trim();
+  const success = await register(fullName, email, password);
     if (success) {
       navigate('/login');
     }
@@ -47,13 +49,25 @@ const Register = () => {
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <Label htmlFor="name">Nome completo</Label>
+              <Label htmlFor="name">Nome</Label>
               <Input
                 id="name"
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="Seu nome completo"
+                placeholder="Nome"
+                className="input-modern"
+                required
+              />
+            </div>
+            <div>
+              <Label htmlFor="surname">Sobrenome</Label>
+              <Input
+                id="surname"
+                type="text"
+                value={surname}
+                onChange={(e) => setSurname(e.target.value)}
+                placeholder="Sobrenome"
                 className="input-modern"
                 required
               />
