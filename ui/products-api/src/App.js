@@ -5,9 +5,9 @@ import Navigation from "./components/Navigation"
 
 
 import Home from './pages/Home';
-// import Login from './pages/Login';
+import Login from './pages/Login';
 // import Register from './pages/Register';
-// import Products from './pages/Products';
+import Products from './pages/Products';
 // import AddProduct from './pages/AddProduct';
 
 function App() {
@@ -16,10 +16,11 @@ function App() {
       <Navigation />
       <Routes>
         <Route path="/" element={<Home />} />
-        {/* <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
         <Route path="/products" element={<Products />} />
-        <Route path="/products/new" element={<AddProduct />} /> */}
+        <Route path="/login" element={<Login />} />
+        {/* 
+        <Route path="/register" element={<Register />} />
+        <Route path="/products/create" element={<AddProduct />} /> */}
       </Routes>
     </Router>
   );

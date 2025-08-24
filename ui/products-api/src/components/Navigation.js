@@ -23,7 +23,7 @@ const Navigation = () => {
             
             <div className="hidden md:flex space-x-6">
               <Link 
-                to="/produtos" 
+                to="/products" 
                 className={`nav-link flex items-center space-x-2 ${isActive('/produtos') ? 'text-primary' : ''}`}
               >
                 <ShoppingBag fontSize="small" />
@@ -32,8 +32,8 @@ const Navigation = () => {
               
               {isAuthenticated && (
                 <Link 
-                  to="/cadastrar-produto" 
-                  className={`nav-link flex items-center space-x-2 ${isActive('/cadastrar-produto') ? 'text-primary' : ''}`}
+                  to="/products/create" 
+                  className={`nav-link flex items-center space-x-2 ${isActive('/products/create') ? 'text-primary' : ''}`}
                 >
                   <Add fontSize="small" />
                   <span>Cadastrar Produto</span>
@@ -62,7 +62,7 @@ const Navigation = () => {
                     Login
                   </Button>
                 </Link>
-                <Link to="/cadastro">
+                <Link to="/signup">
                   <Button size="sm" className="btn-gradient">
                     Cadastrar
                   </Button>

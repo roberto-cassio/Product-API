@@ -26,7 +26,7 @@ const Home = () => {
 
         {/* Action Cards */}
         <div className="grid md:grid-cols-3 gap-8 mb-16">
-          <Link to="/produtos" className="block">
+          <Link to="/products" className="block">
             <div className="card-product text-center group cursor-pointer">
               <div className="w-16 h-16 bg-gradient-to-r from-primary to-accent rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                 <ShoppingBag className="text-white" style={{ fontSize: 32 }} />
@@ -58,7 +58,7 @@ const Home = () => {
                 </div>
               </Link>
 
-              <Link to="/cadastro" className="block">
+              <Link to="/signup" className="block">
                 <div className="card-product text-center group cursor-pointer">
                   <div className="w-16 h-16 bg-gradient-to-r from-primary to-accent rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                     <Add className="text-white" style={{ fontSize: 32 }} />
@@ -74,7 +74,7 @@ const Home = () => {
               </Link>
             </>
           ) : (
-            <Link to="/cadastrar-produto" className="block md:col-span-2">
+            <Link to="/products/create" className="block md:col-span-2">
               <div className="card-product text-center group cursor-pointer">
                 <div className="w-16 h-16 bg-gradient-to-r from-success to-primary rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                   <Add className="text-white" style={{ fontSize: 32 }} />
