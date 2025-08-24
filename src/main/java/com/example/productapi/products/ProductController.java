@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/products")
+//TODO: Implement Pagination
 public class ProductController {
     @Autowired
     private ProductsRepository productsRepository;
@@ -24,13 +25,16 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<Product> getAllProducts() {
-        return productsRepository.findAll();
+    public List<ProductResponseDto> getAllProducts() {
+        List<Product> products = productsRepository.findAll();
+        return products.stream()
+                .map(ProductResponseDto::fromEntity)
+                .toList();
     }
 
      @GetMapping("/{id}")
-     public ResponseEntity<Product> getProductByID(@PathVariable Long id) {
-        return productsRepository.findById(id).map(product -> ResponseEntity.ok().body(product))
+     public ResponseEntity<ProductResponseDto> getProductByID(@PathVariable Long id) {
+        return productsRepository.findById(id).map(product -> ResponseEntity.ok().body(ProductResponseDto.fromEntity(product)))
                 .orElse(ResponseEntity.notFound().build());
      }
 
