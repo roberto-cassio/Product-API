@@ -17,7 +17,8 @@ public class LoginResponseDto {
         return expiresIn;
     }
 
-    public void setExpiresIn(long expiresIn) {
+    public LoginResponseDto setExpiresIn(long expiresIn) {
         this.expiresIn = expiresIn;
+        return this;
     }
 }

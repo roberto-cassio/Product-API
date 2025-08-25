@@ -1,11 +1,13 @@
 package com.example.productapi.auth.dtos;
 
 public class LoginUserDto {
+    @NotBlank(message = "Email is required")
+    @Email(message = "Email should be valid")
     private String email;
+    @NotBlank(message = "Password is required")
     private String password;
 
     // Getters and Setters
-    //TODO: Check if password will really have a getter with plain text
     public String getEmail() {
         return email;
     }
