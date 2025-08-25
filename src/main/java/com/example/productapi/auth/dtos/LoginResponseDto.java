@@ -8,8 +8,9 @@ public class LoginResponseDto {
         return token;
     }
 
-    public void setToken(String token) {
+    public LoginResponseDto setToken(String token) {
         this.token = token;
+        return this;
     }
 
     public long getExpiresIn() {

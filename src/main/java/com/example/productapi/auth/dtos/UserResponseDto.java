@@ -1,5 +1,6 @@
 package com.example.productapi.auth.dtos;
 
+import com.example.productapi.auth.User;
 public class UserResponseDto {
     private String email;
     private String firstName;
@@ -28,7 +29,7 @@ public class UserResponseDto {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-    public static UserResponseDto from Entity(User user) {
+    public static UserResponseDto fromEntity(User user) {
       UserResponseDto dto = new UserResponseDto();
       dto.setEmail(user.getEmail());
       dto.setFirstName(user.getFirstName());

@@ -41,10 +41,5 @@ public class RegisterUserDto {
         this.lastName = lastName;
     }
 
-    //Getters and Setters
-    //TODO: Check if password will really have a getter with plain text
-
-
-    //getters and setters
     
 }
