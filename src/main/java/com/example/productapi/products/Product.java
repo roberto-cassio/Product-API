@@ -10,9 +10,13 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @NotBlank(message = "Product name is required")
+    @Size(max = 100, message = "Name cannot exceed 100 characters")
     private String name;
+    @Size(max = 500, message = "Description cannot exceed 500 characters")
     private String description;
+    @Min(value = 0, message = "Price must be positive")
+    @NotNull(message = "Price is required")
     private Integer price;
 
 
