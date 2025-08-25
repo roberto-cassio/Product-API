@@ -24,7 +24,7 @@ const Navigation = () => {
             <div className="hidden md:flex space-x-6">
               <Link 
                 to="/products" 
-                className={`nav-link flex items-center space-x-2 ${isActive('/produtos') ? 'text-primary' : ''}`}
+                className={`nav-link flex items-center space-x-2 ${isActive('/products') ? 'text-primary' : ''}`}
               >
                 <ShoppingBag fontSize="small" />
                 <span>Produtos</span>
