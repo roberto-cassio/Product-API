@@ -47,6 +47,6 @@ public class AuthenticationService {
         );
 
         return userRepository.findByEmail(input.getEmail())
-                .orElseThrow();
+                .orElseThrow(() -> new UsernameNotFoundException("User with this email not found: " + input.getEmail()));
     }
 }
