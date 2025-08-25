@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { fetchProducts, createProduct } from '../services/productService';
+import { fetchProducts, createProduct, deleteProduct as deleteProductService } from '../services/productService';
 
 
 
@@ -43,11 +43,21 @@ export const ProductProvider = ({ children }) => {
       throw error 
     }
   };
-  
-  return (
+
+  const deleteProduct = async (productId) => {
+    try {
+      await deleteProductService(productId);
+      setProducts((prev) => prev.filter(product => product.id !== productId));
+      return true;
+    } catch (error) {
+      console.error('Error deleting product:', error);
+      throw error;
+    }
+  };  return (
     <ProductContext.Provider value={{
       products,
       addProduct,
+      deleteProduct,
       loading,
     }}>
       {children}

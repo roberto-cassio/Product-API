@@ -6,9 +6,17 @@ import { ShoppingBag } from '@mui/icons-material';
 import Delete from '@mui/icons-material/Delete';
 
 const Products = () => {
-  const { products, loading } = useProducts();
+  const { products, loading, deleteProduct } = useProducts();
   const isAuthenticated = true //TODO: Trocar para useAuth após testes
 
+
+  const handleDeleteProduct = async (productId) => {
+    try {
+      await deleteProduct(productId);
+    } catch(error) {
+      console.error('Erro ao deletar produto:', error);
+    }
+  }
   if (loading) {
     return (
       <div className="min-h-screen bg-background py-8">
@@ -73,9 +81,11 @@ const Products = () => {
                     R$ {product.priceInReais.toFixed(2).replace('.', ',')}
                   </div>
                   <div className="text-2xl font-bold text-primary">
-                    <Delete fontsize="inherit" className={`${
-                         isAuthenticated ? "text-purple-500 cursor-pointer" : "text-gray-400 cursor-not-allowed"
-                    }`} />
+                    <Delete 
+                      fontsize="inherit" 
+                      className={`${isAuthenticated ? "text-purple-500 cursor-pointer" : "text-gray-400 cursor-not-allowed"}`}
+                      onClick={() => isAuthenticated && handleDeleteProduct(product.id)}
+                    />
                   </div>
                 </div>
               </div>
