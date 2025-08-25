@@ -1,5 +1,8 @@
 package com.example.productapi.auth.dtos;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
 public class LoginUserDto {
     @NotBlank(message = "Email is required")
     @Email(message = "Email should be valid")

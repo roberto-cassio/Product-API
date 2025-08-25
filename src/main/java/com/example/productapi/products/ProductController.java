@@ -1,7 +1,6 @@
 package com.example.productapi.products;
 
 import java.util.List;
-import com.example.productapi.products.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
