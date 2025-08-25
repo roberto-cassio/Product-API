@@ -1,4 +1,4 @@
-package com.example.productapi.configs;
+package com.example.productapi.auth;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

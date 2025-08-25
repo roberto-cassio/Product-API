@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.productapi.auth.dtos.LoginUserDto;
 import com.example.productapi.auth.dtos.RegisterUserDto;
-import com.example.productapi.configs.AuthenticationService;
+import com.example.productapi.auth.dtos.UserResponseDto;
+import com.example.productapi.auth.dtos.LoginResponseDto;
 
 @RequestMapping("/auth")
 @RestController
@@ -23,19 +24,21 @@ public class AuthenticationController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<User> register(@RequestBody RegisterUserDto registerUserDto) {
+    public ResponseEntity<UserResponseDto> register(@RequestBody RegisterUserDto registerUserDto) {
         User registeredUser = authenticationService.signup(registerUserDto);
-        
-        return ResponseEntity.ok(registeredUser);
+        UserResponseDto response = UserResponseDto.fromEntity(registeredUser);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginUserDto loginUserDto) {
+    public ResponseEntity<LoginResponseDto> authenticate(@RequestBody LoginUserDto loginUserDto) {
         User authenticatedUser = authenticationService.authenticate(loginUserDto);
 
         String jwtToken = jwtService.generateToken(authenticatedUser);
 
-        LoginResponse loginResponse = new LoginResponse().setToken(jwtToken).setExpiresIn(jwtService.getExpirationTime());
+        LoginResponseDto loginResponse = new LoginResponseDto()
+        .setToken(jwtToken)
+        .setExpiresIn(jwtService.getExpirationTime());
 
         return ResponseEntity.ok(loginResponse);
     }
