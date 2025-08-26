@@ -3,9 +3,11 @@ import { useProducts } from '../contexts/ProductContext';
 import Card  from '@mui/material/Card';
 import Skeleton from '@mui/material/Skeleton';
 import { ShoppingBag } from '@mui/icons-material';
+import Delete from '@mui/icons-material/Delete';
 
 const Products = () => {
   const { products, loading } = useProducts();
+  const isAuthenticated = true //TODO: Trocar para useAuth após testes
 
   if (loading) {
     return (
@@ -16,7 +18,7 @@ const Products = () => {
             <Skeleton className="h-4 w-96 mx-auto" />
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[...Array(6)].map((_, i) => (
+            {[...Array(products.length > 0 ? products.length : 6)].map((_, i) => (
               <Card key={i} className="p-6">
                 <Skeleton className="h-6 w-3/4 mb-4" />
                 <Skeleton className="h-4 w-full mb-2" />
@@ -56,7 +58,7 @@ const Products = () => {
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {products.map((product) => (
-              <div key={product.id} className="card-product">
+              <div key={product.id} className="card-product ">
                 <div className="mb-4">
                   <h3 className="text-xl font-semibold text-foreground mb-2">
                     {product.name}
@@ -68,10 +70,12 @@ const Products = () => {
                 
                 <div className="flex items-center justify-between">
                   <div className="text-2xl font-bold text-primary">
-                    R$ {product.price.toFixed(2).replace('.', ',')}
+                    R$ {product.priceInReais.toFixed(2).replace('.', ',')}
                   </div>
-                  <div className="text-xs text-muted-foreground">
-                    {new Date(product.createdAt).toLocaleDateString('pt-BR')}
+                  <div className="text-2xl font-bold text-primary">
+                    <Delete fontsize="inherit" className={`${
+                         isAuthenticated ? "text-purple-500 cursor-pointer" : "text-gray-400 cursor-not-allowed"
+                    }`} />
                   </div>
                 </div>
               </div>

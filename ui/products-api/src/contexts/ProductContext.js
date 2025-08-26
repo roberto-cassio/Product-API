@@ -1,9 +1,10 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { fetchProducts, createProduct } from '../services/productService';
 
 
 
 
-const ProductContext = createContext(null);
+const ProductContext = createContext();
 
 export const useProducts = () => {
   const context = useContext(ProductContext);
@@ -13,53 +14,36 @@ export const useProducts = () => {
   return context;
 }
 
-const mockProducts = [
-  {
-    id: '1',
-    name: 'Mock Product 1',
-    description: 'Mock Product 1',
-    price: 3500.00,
-    createdAt: new Date().toISOString(),
-  },
-  {
-    id: '2',
-    name: 'Mock Product 2',
-    description: 'Mock Product 2',
-    price: 120.00,
-    createdAt: new Date().toISOString(),
-  },
-  {
-    id: '3',
-    name: 'Mock Product 3',
-    description: 'Mock Product 3',
-    price: 280.00,
-    createdAt: new Date().toISOString(),
-  },
-];
-
-
 export const ProductProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setProducts(mockProducts);
-    setLoading(false);
+    const loadProducts = async () => {
+      try{
+        const products = await fetchProducts();
+        setProducts(products);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }finally{
+        setLoading(false)
+      }
+    }
+  loadProducts()
   }, []);
 
-  const addProduct = (productData) => {
-    const newProduct = {
-      ...productData,
-      id: Date.now().toString(),
-      createdAt: new Date().toISOString(),
-    };
+  const addProduct = async (productData) => {
+    try {
+    const newProduct = await createProduct(productData);
+    setProducts((prev) => [...prev, newProduct]);
 
-    const updatedProducts = [...products, newProduct];
-    setProducts(updatedProducts);
-    localStorage.setItem('products', JSON.stringify(updatedProducts));
-    // TODO: Add Toast
+    return newProduct;
+    } catch (error) {
+      console.error('Error adding product:', error);
+      throw error 
+    }
   };
-
+  
   return (
     <ProductContext.Provider value={{
       products,

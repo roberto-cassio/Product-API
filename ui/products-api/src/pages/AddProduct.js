@@ -8,11 +8,11 @@ import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Textarea } from '../components/ui/textarea';
 import { Add, ArrowBack } from '@mui/icons-material';
-
 const AddProduct = () => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [price, setPrice] = useState('');
+  const [priceDisplay, setPriceDisplay] = useState('');
+  const [priceRaw, setPriceRaw] = useState('');
   const [loading, setLoading] = useState(false);
   const { addProduct } = useProducts();
   //const { isAuthenticated } = useAuth();
@@ -20,6 +20,17 @@ const AddProduct = () => {
   const isAuthenticated  = true;
 
   const navigate = useNavigate();
+
+function formatPrice(value) {
+    const numsOnly = value.replace(/\D/g, '');
+    if (!numsOnly) return '';
+
+    const nums = numsOnly.replace(/^0+/, '') || '0';
+
+    if (nums.length === 1) return '0.0' + nums;
+    if (nums.length === 2) return '0.' + nums;
+    return `${nums.slice(0, -2)}.${nums.slice(-2)}`;
+}
 
   React.useEffect(() => {
     if (!isAuthenticated) {
@@ -31,7 +42,7 @@ const AddProduct = () => {
     e.preventDefault();
     setLoading(true);
     
-    const priceNumber = parseFloat(price.replace(',', '.'));
+    const priceNumber = parseInt(priceRaw,10);
     
     if (isNaN(priceNumber) || priceNumber <= 0) {
       setLoading(false);
@@ -46,7 +57,7 @@ const AddProduct = () => {
 
     setName('');
     setDescription('');
-    setPrice('');
+    setPriceDisplay('');
     setLoading(false);
     
     setTimeout(() => {
@@ -114,18 +125,19 @@ const AddProduct = () => {
                 <Input
                   id="price"
                   type="text"
-                  value={price}
+                  value={priceDisplay}
                   onChange={(e) => {
-                    const value = e.target.value.replace(/[^0-9.,]/g, '');
-                    setPrice(value);
+                    const raw = e.target.value.replace(/\D/g, '');
+                    const formatted = formatPrice(e.target.value);
+
+                    setPriceRaw(raw);
+                    setPriceDisplay(formatted);
                   }}
-                  placeholder="0,00"
+                  placeholder="0.00"
                   className="input-modern"
                   required
                 />
-                <p className="text-xs text-muted-foreground mt-1">
-                  Use vírgula ou ponto para decimais (ex: 1299,99)
-                </p>
+
               </div>
               
               <div className="flex space-x-4">
@@ -140,7 +152,7 @@ const AddProduct = () => {
                 <Button
                   type="submit"
                   className="flex-1 btn-gradient"
-                  disabled={loading || !name || !description || !price}
+                  disabled={loading || !name || !description || !priceRaw}
                 >
                   {loading ? 'Cadastrando...' : 'Cadastrar Produto'}
                 </Button>
