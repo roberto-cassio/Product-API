@@ -17,15 +17,24 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    
-    const success = await login(email, password);
-    if (success) {
-      navigate('/');
-    }
-    
-    setLoading(false);
+    await handleLogin();
   };
+
+  const handleLogin = async () => {
+    try {
+      setLoading(true);
+      const result = await login(email, password);
+      if (result.success) {
+        navigate('/');
+      } else {
+        console.error('Login failed:', result.error);
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+    } finally{
+      setLoading(false);
+    }
+  }
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center py-12 px-4">

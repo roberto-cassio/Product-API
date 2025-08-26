@@ -15,24 +15,35 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { register } = useAuth();
+  const { signup } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+    setLoading(true);
     if (password !== confirmPassword) {
+      console.error('Passwords do not match');
+      setLoading(false);
       return;
     }
-    
-    setLoading(true);
-  const fullName = `${name} ${surname}`.trim();
-  const success = await register(fullName, email, password);
-    if (success) {
-      navigate('/login');
-    }
-    setLoading(false);
+    await handleSignup();
   };
+
+  const handleSignup = async () => {
+    try {
+      const result = await signup(name, surname, email, password);
+      if (result.success) {
+        navigate('/login');
+      }
+      else {
+        console.error('Failed to register user', result.message);
+      }
+    } catch (error) {
+      console.error('Registration error:', error);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center py-12 px-4">

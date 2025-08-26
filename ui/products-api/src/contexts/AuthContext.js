@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { loginUser, signupUser} from '../services/authService';
 
 
 
@@ -15,51 +16,56 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    const savedToken = localStorage.getItem('token');
     const savedUser = localStorage.getItem('user');
-    if (savedUser) {
+    if (savedUser && savedToken) {
       setUser(JSON.parse(savedUser));
     }
+    setLoading(false)
   }, []);
 
   const login = async (email, password) => {
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
-    const foundUser = users.find((u) => u.email === email && u.password === password);
-    if (foundUser) {
-      const { password: _, ...userWithoutPassword } = foundUser;
-      setUser(userWithoutPassword);
-      localStorage.setItem('user', JSON.stringify(userWithoutPassword));
-      // TODO: Toast login success
-      return true;
-    } else {
-      // TODO: Toast login error
-      return false;
+    try {
+      setLoading(true)
+
+      const response = await loginUser(email, password);
+
+      localStorage.setItem('token', response.token);
+      localStorage.setItem('user', JSON.stringify(response.user));
+
+      setUser(response.user);
+
+      return { success: true };
+    } catch (error) {
+      console.error('Login error:', error);
+      return { success: false, message: error.response?.data?.message || 'Login failed' };
+    } finally {
+      setLoading(false)
     }
   };
 
   const logout = () => {
     setUser(null);
+    localStorage.removeItem('token');
     localStorage.removeItem('user');
     // TODO: Toast logout
   };
 
-  const register = async (name, email, password) => {
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
-    if (users.find((u) => u.email === email)) {
-      // TODO: Toast email already in use
-      return false;
+  const signup = async (firstName, lastName, email, password) => {
+    try {
+      setLoading(true)
+
+      const response = await signupUser(firstName, lastName, email, password);
+      return { success:true };
+    } catch (error) {
+      console.error('Signup error:', error);
+      return { success: false, message: error.response?.data?.message || 'Signup failed' };
+    } finally {
+      setLoading(false)
     }
-    const newUser = {
-      id: Date.now().toString(),
-      name,
-      email,
-      password,
-    };
-    users.push(newUser);
-    localStorage.setItem('users', JSON.stringify(users));
-    // TODO: Toast register success
-    return true;
   };
 
   return (
@@ -67,7 +73,7 @@ export const AuthProvider = ({ children }) => {
       user,
       login,
       logout,
-      register,
+      signup,
       isAuthenticated: !!user,
     }}>
       {children}
