@@ -48,21 +48,23 @@ function formatPrice(value) {
       setLoading(false);
       return;
     }
-
-    addProduct({
+    try{
+    await addProduct({
       name,
       description,
-      price: priceNumber,
+      priceInReais: priceNumber,
     });
 
     setName('');
     setDescription('');
     setPriceDisplay('');
-    setLoading(false);
     
-    setTimeout(() => {
-      navigate('/products');
-    }, 1500);
+    navigate('/products');
+    } catch (error) {
+      console.error('Error adding product:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (!isAuthenticated) {
