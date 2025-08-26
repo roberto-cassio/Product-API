@@ -21,8 +21,10 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const savedToken = localStorage.getItem('token');
     const savedUser = localStorage.getItem('user');
+    console.log('Loaded user from localStorage:', savedUser);
+    console.log('Loaded token from localStorage:', savedToken);
     if (savedUser && savedToken) {
-      setUser(JSON.parse(savedUser));
+     setUser(JSON.parse(savedUser));
     }
     setLoading(false)
   }, []);
@@ -35,6 +37,8 @@ export const AuthProvider = ({ children }) => {
 
       localStorage.setItem('token', response.token);
       localStorage.setItem('user', JSON.stringify(response.user));
+
+      console.log(response.user)
 
       setUser(response.user);
 

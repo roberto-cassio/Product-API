@@ -1,11 +1,8 @@
 package com.example.productapi.auth;
 
-import java.sql.Date;
 import java.util.Collection;
 import java.util.List;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -38,15 +35,6 @@ public class User implements UserDetails {
     @Column(nullable = false)
     @JsonIgnore
     private String password;
-
-    @CreationTimestamp
-    @Column(nullable = false, updatable = false, name = "created_at")
-    private Date createdAt;
-
-    @UpdateTimestamp
-    @Column(nullable = false, name = "updated_at")
-    private Date upDatedAt;
-
     // Getters and Setters
     @Override
     public Collection<?  extends GrantedAuthority> getAuthorities() {

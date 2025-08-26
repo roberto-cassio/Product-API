@@ -1,4 +1,5 @@
 import React from 'react';
+import { useAuth } from '../contexts/AuthContext';
 import { Button } from './ui/button'
 import { Link, useLocation } from 'react-router-dom';
 import { ShoppingBag, Logout, Person, Add } from '@mui/icons-material';
@@ -6,11 +7,7 @@ import { ShoppingBag, Logout, Person, Add } from '@mui/icons-material';
 const Navigation = () => {
   const location = useLocation();
   const isActive = (path) => location.pathname === path;
-  //TODO: Voltar para remover MOCK
-  const isAuthenticated = false;
-  const user = {
-    name: "Jorge"
-  };
+  const { user, isAuthenticated} = useAuth();
 
   return (
     <nav className="bg-card border-b border-border shadow-sm">
@@ -45,7 +42,7 @@ const Navigation = () => {
           <div className="flex items-center space-x-4">
             {isAuthenticated ? (
               <>
-                <span className="text-muted-foreground">Olá, {user?.name}</span>
+                <span className="text-muted-foreground">Olá, {user?.firstName} {user?.lastName}</span>
                 <Button
                   variant="outline"
                   size="sm"

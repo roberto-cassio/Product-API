@@ -2,10 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material/Button'
 import { ShoppingBag, Person, Add, ArrowForward } from '@mui/icons-material';
-// import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 
 const Home = () => {
-  const { isAuthenticated } = true;
+  const  isAuthenticated  = useAuth();
 
   return (
     <div className="min-h-screen bg-background">

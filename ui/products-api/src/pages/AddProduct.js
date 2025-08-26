@@ -15,9 +15,8 @@ const AddProduct = () => {
   const [priceRaw, setPriceRaw] = useState('');
   const [loading, setLoading] = useState(false);
   const { addProduct } = useProducts();
-  //const { isAuthenticated } = useAuth();
-  //TODO: Voltar a usar o useAuth, só para teste
-  const isAuthenticated  = true;
+  const { isAuthenticated } = useAuth();
+
 
   const navigate = useNavigate();
 

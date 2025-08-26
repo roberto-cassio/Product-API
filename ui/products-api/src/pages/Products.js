@@ -4,11 +4,11 @@ import Card  from '@mui/material/Card';
 import Skeleton from '@mui/material/Skeleton';
 import { ShoppingBag } from '@mui/icons-material';
 import Delete from '@mui/icons-material/Delete';
+import { useAuth } from '../contexts/AuthContext';
 
 const Products = () => {
   const { products, loading, deleteProduct } = useProducts();
-  const isAuthenticated = true //TODO: Trocar para useAuth após testes
-
+  const isAuthenticated = useAuth();
 
   const handleDeleteProduct = async (productId) => {
     try {

@@ -1,9 +1,13 @@
 package com.example.productapi.auth;
 
+import com.example.productapi.auth.dtos.UserResponseDto;
+
 public class LoginResponse {
     private String token;
 
     private long expiresIn;
+
+    private UserResponseDto user;
 
     public String getToken() {
         return token;
@@ -22,6 +26,16 @@ public class LoginResponse {
         this.expiresIn = expiresIn;
         return this;
     }
+
+    public UserResponseDto getUser() {
+        return user;
+    }
+
+    public void setUser(UserResponseDto user) {
+        this.user = user;
+    }
+
+    
 
     
 }
