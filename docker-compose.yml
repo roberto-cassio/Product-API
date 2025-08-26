@@ -1,5 +1,5 @@
 services:
-  app:
+  backend:
     build: .
     ports:
       - "8080:8080"
@@ -8,8 +8,18 @@ services:
       - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.h2.Driver
       - SPRING_DATASOURCE_USERNAME=sa
       - SPRING_DATASOURCE_PASSWORD=
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
     depends_on:
       - db
+    networks:
+      - app-network
+
+  frontend:
+    build: ./ui/products-api
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
     networks:
       - app-network
 
