@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { loginUser, signupUser} from '../services/authService';
+import { toast } from 'react-toastify';
 
 
 
@@ -21,8 +22,6 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const savedToken = localStorage.getItem('token');
     const savedUser = localStorage.getItem('user');
-    console.log('Loaded user from localStorage:', savedUser);
-    console.log('Loaded token from localStorage:', savedToken);
     if (savedUser && savedToken) {
      setUser(JSON.parse(savedUser));
     }
@@ -55,7 +54,7 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    // TODO: Toast logout
+    toast.success('Logout realizado com sucesso!');
   };
 
   const signup = async (firstName, lastName, email, password) => {
@@ -63,9 +62,11 @@ export const AuthProvider = ({ children }) => {
       setLoading(true)
 
       const response = await signupUser(firstName, lastName, email, password);
+      toast.success('Cadastro realizado com sucesso!');
       return { success:true };
     } catch (error) {
       console.error('Signup error:', error);
+      toast.error('Ocorreu um erro ao realizar o cadastro. Tente novamente mais tarde.');
       return { success: false, message: error.response?.data?.message || 'Signup failed' };
     } finally {
       setLoading(false)

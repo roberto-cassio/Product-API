@@ -7,7 +7,7 @@ import { ShoppingBag, Logout, Person, Add } from '@mui/icons-material';
 const Navigation = () => {
   const location = useLocation();
   const isActive = (path) => location.pathname === path;
-  const { user, isAuthenticated} = useAuth();
+  const { user, isAuthenticated, logout} = useAuth();
 
   return (
     <nav className="bg-card border-b border-border shadow-sm">
@@ -47,6 +47,7 @@ const Navigation = () => {
                   variant="outline"
                   size="sm"
                   className="flex items-center space-x-2"
+                   onClick={logout}
                 >
                   <Logout fontSize="small" />
                   <span>Sair</span>
