@@ -6,6 +6,7 @@ import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { useAuth } from '../contexts/AuthContext';
 import { Login as LoginIcon, Visibility, VisibilityOff } from '@mui/icons-material';
+import {toast } from 'react-toastify';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -25,12 +26,15 @@ const Login = () => {
       setLoading(true);
       const result = await login(email, password);
       if (result.success) {
+        toast.success('Login realizado com sucesso!');
         navigate('/');
       } else {
         console.error('Login failed:', result.error);
+        toast.error('Login falhou. Verifique suas credenciais e tente novamente.');
       }
     } catch (error) {
       console.error('Login error:', error);
+      toast.error('Ocorreu um erro ao fazer login. Tente novamente mais tarde.');
     } finally{
       setLoading(false);
     }

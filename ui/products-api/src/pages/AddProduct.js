@@ -8,6 +8,8 @@ import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Textarea } from '../components/ui/textarea';
 import { Add, ArrowBack } from '@mui/icons-material';
+import { toast } from 'react-toastify'
+
 const AddProduct = () => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -58,9 +60,10 @@ function formatPrice(value) {
     setDescription('');
     setPriceDisplay('');
     
-    navigate('/products');
+    toast.success('Produto cadastrado com sucesso!');
     } catch (error) {
       console.error('Error adding product:', error);
+      toast.error('Ocorreu um erro ao cadastrar o produto. Tente novamente mais tarde.');
     } finally {
       setLoading(false);
     }

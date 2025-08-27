@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { fetchProducts, createProduct, deleteProduct as deleteProductService } from '../services/productService';
-
+import { toast} from 'react-toastify'
 
 
 
@@ -25,6 +25,7 @@ export const ProductProvider = ({ children }) => {
         setProducts(products);
       } catch (error) {
         console.error('Error fetching products:', error);
+        toast.error('Ocorreu um erro ao buscar os produtos. Tente novamente mais tarde.');
       }finally{
         setLoading(false)
       }

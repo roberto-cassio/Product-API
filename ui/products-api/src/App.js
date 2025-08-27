@@ -1,7 +1,7 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import Navigation from "./components/Navigation"
-
+import { ToastContainer } from 'react-toastify';
 
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -22,6 +22,7 @@ function App() {
         <Route path="/products/create" element={<AddProduct />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover/>
     </Router>
   );
 }

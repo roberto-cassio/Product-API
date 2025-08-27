@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card'
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { PersonAdd, Visibility, VisibilityOff } from '@mui/icons-material';
+import { toast } from 'react-toastify';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -33,13 +34,16 @@ const Register = () => {
     try {
       const result = await signup(name, surname, email, password);
       if (result.success) {
+        toast.success('Cadastro feito com sucesso! Faça login para continuar.');
         navigate('/login');
       }
       else {
         console.error('Failed to register user', result.message);
+        toast.error('Ocorreu um erro ao cadastrar o usuário. Tente novamente mais tarde.');
       }
     } catch (error) {
       console.error('Registration error:', error);
+      toast.error('Ocorreu um erro ao cadastrar o usuário. Tente novamente mais tarde.');
     } finally {
       setLoading(false);
     }

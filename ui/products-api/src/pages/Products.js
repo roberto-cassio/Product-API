@@ -5,16 +5,22 @@ import Skeleton from '@mui/material/Skeleton';
 import { ShoppingBag } from '@mui/icons-material';
 import Delete from '@mui/icons-material/Delete';
 import { useAuth } from '../contexts/AuthContext';
+import { toast} from 'react-toastify'
 
 const Products = () => {
   const { products, loading, deleteProduct } = useProducts();
-  const isAuthenticated = useAuth();
+  const {isAuthenticated} = useAuth();
 
   const handleDeleteProduct = async (productId) => {
+    const confirmed = window.confirm('Tem certeza que deseja deletar este produto?');
+    if (!confirmed) return;
+
     try {
       await deleteProduct(productId);
+      toast.success('Produto deletado com sucesso!');
     } catch(error) {
       console.error('Erro ao deletar produto:', error);
+      toast.error('Ocorreu um erro ao deletar o produto. Tente novamente mais tarde.');
     }
   }
   if (loading) {

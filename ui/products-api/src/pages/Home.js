@@ -5,7 +5,7 @@ import { ShoppingBag, Person, Add, ArrowForward } from '@mui/icons-material';
 import { useAuth } from '../contexts/AuthContext';
 
 const Home = () => {
-  const  isAuthenticated  = useAuth();
+  const  { isAuthenticated }  = useAuth();
 
   return (
     <div className="min-h-screen bg-background">
