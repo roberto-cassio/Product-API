@@ -1,8 +1,8 @@
 import api from '../lib/api.js';
 
-export const fetchProducts = async () => {
+export const fetchProducts = async (page = 0, size= 6) => {
     try {
-        const response = await api.get('/products');
+        const response = await api.get(`/products?page=${page}&size=${size}`);
         return response.data;
     } catch (error) {
         console.error('Error fetching products:', error);
@@ -16,6 +16,16 @@ export const createProduct = async (productData) => {
         return response.data;
     } catch (error) {
         console.error('Error adding product:', error);
+        throw error;
+    }
+}
+
+export const updateProduct = async (productId, updateProductData) => {
+    try {
+        const response = await api.put(`/products/${productId}`, updateProductData);
+        return response.data;
+    } catch (error) {
+        console.error('Error updating product:', error);
         throw error;
     }
 }

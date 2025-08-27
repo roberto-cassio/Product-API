@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { fetchProducts, createProduct, deleteProduct as deleteProductService } from '../services/productService';
+import { fetchProducts, createProduct, updateProduct, deleteProduct as deleteProductService } from '../services/productService';
 import { toast} from 'react-toastify'
 
 
@@ -42,6 +42,16 @@ export const ProductProvider = ({ children }) => {
     } catch (error) {
       console.error('Error adding product:', error);
       throw error 
+    }
+  };
+  const updateProduct = async (productId, updateProductData) => {
+    try {
+      const updatedProduct = await updateProduct(productId, updateProductData);
+      setProducts((prev) => prev.map(product => product.id === productId ? updatedProduct : product));
+      return updatedProduct;
+    } catch (error) {
+      console.error('Error updating product:', error);
+      throw error;
     }
   };
 

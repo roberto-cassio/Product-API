@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 @Service
 @Transactional
 public class ProductService {
@@ -20,8 +23,18 @@ public class ProductService {
     return productRepository.save(product);
   }
 
-  public List<ProductResponseDto> getAllProducts() {
-    List<Product> products = productRepository.findAll();
+  public Product updateProduct(Long id, Product updatedProduct) {
+    validateProduct(updatedProduct);
+    return productRepository.findById(id).map(product -> {
+      product.setName(updatedProduct.getName());
+      product.setDescription(updatedProduct.getDescription());
+      product.setPrice(updatedProduct.getPrice());
+      return productRepository.save(product);
+    }).orElseThrow(() -> new IllegalArgumentException("Product with ID " + id + " not found"));
+  }
+
+  public Page<ProductResponseDto> getAllProducts() {
+    Page<Product> products = productRepository.findAll(pageable);
     return products.stream()
             .map(ProductResponseDto::fromEntity)
             .toList();
@@ -46,10 +59,10 @@ public class ProductService {
     if (product.getName() == null || product.getName().isEmpty()) {
       throw new IllegalArgumentException("Product name cannot be null or empty");
     }
-    //TODO: Fix this validation
-    // if (product.getPrice() == null || product.getPrice() < 0) {
-    //   throw new IllegalArgumentException("Product price must be positive");
-    // }
+
+    if (product.getPrice() == null || product.getPrice() < 0) {
+      throw new IllegalArgumentException("Product price must be positive");
+    }
   }
 
   private void validateDuplicatedName(String name) {

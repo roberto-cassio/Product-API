@@ -2,14 +2,25 @@ import React from 'react';
 import { useProducts } from '../contexts/ProductContext';
 import Card  from '@mui/material/Card';
 import Skeleton from '@mui/material/Skeleton';
-import { ShoppingBag } from '@mui/icons-material';
-import Delete from '@mui/icons-material/Delete';
+import { ShoppingBag, Delete, Edit } from '@mui/icons-material';
 import { useAuth } from '../contexts/AuthContext';
 import { toast} from 'react-toastify'
+import { Pagination } from '@mui/material';
+import EditProductDialog from '../components/EditProdutDialog';
 
 const Products = () => {
-  const { products, loading, deleteProduct } = useProducts();
+  const { 
+    products, 
+    loading, 
+    deleteProduct, 
+    currentPage, 
+    totalElements, 
+    size, 
+    handlePageChange 
+  } = useProducts();
   const {isAuthenticated} = useAuth();
+  const [editingProduct, setEditingProduct] = React.useState(null);
+  const [isEditDialogOPen, setIsEditDialogOpen] = React.useState(false);
 
   const handleDeleteProduct = async (productId) => {
     const confirmed = window.confirm('Tem certeza que deseja deletar este produto?');
@@ -22,6 +33,11 @@ const Products = () => {
       console.error('Erro ao deletar produto:', error);
       toast.error('Ocorreu um erro ao deletar o produto. Tente novamente mais tarde.');
     }
+  }
+
+  const handleEditProduct = (product) => {
+    setEditingProduct(product);
+    setIsEditDialogOpen(true);
   }
   if (loading) {
     return (
@@ -59,7 +75,7 @@ const Products = () => {
           </p>
         </div>
 
-        {products.length === 0 ? (
+        {products.length === 0 && totalElements === 0 ? (
           <div className="text-center py-16">
             <div className="w-20 h-20 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
               <ShoppingBag className="text-muted-foreground" style={{ fontSize: 32 }} />
@@ -87,6 +103,11 @@ const Products = () => {
                     R$ {product.priceInReais.toFixed(2).replace('.', ',')}
                   </div>
                   <div className="text-2xl font-bold text-primary">
+                    <Edit 
+                      fontsize="inherit" 
+                      className={`${isAuthenticated ? "text-green-500 cursor-pointer" : "text-gray-400 cursor-not-allowed"}`}
+                      onClick={() => isAuthenticated && handleEditProduct(product)}
+                    />
                     <Delete 
                       fontsize="inherit" 
                       className={`${isAuthenticated ? "text-purple-500 cursor-pointer" : "text-gray-400 cursor-not-allowed"}`}
@@ -98,7 +119,27 @@ const Products = () => {
             ))}
           </div>
         )}
+        
+        {/* Paginação - só aparece se houver mais de uma página */}
+        {totalElements > size && (
+          <div className="flex justify-center mt-12">
+            <Pagination 
+              count={Math.ceil(totalElements / size)} 
+              page={currentPage + 1}
+              onChange={(event, page) => handlePageChange(page - 1)}
+              color="primary"
+              size="large"
+              showFirstButton 
+              showLastButton
+            />
+          </div>
+        )}
       </div>
+      <EditProductDialog
+        product={editingProduct}
+        open={isEditDialogOPen}
+        onOpenChange={setIsEditDialogOpen}
+      />
     </div>
   );
 };

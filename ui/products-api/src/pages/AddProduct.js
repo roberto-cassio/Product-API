@@ -9,6 +9,7 @@ import { Label } from '../components/ui/label';
 import { Textarea } from '../components/ui/textarea';
 import { Add, ArrowBack } from '@mui/icons-material';
 import { toast } from 'react-toastify'
+import { formatPrice } from '../lib/utils';
 
 const AddProduct = () => {
   const [name, setName] = useState('');
@@ -21,17 +22,6 @@ const AddProduct = () => {
 
 
   const navigate = useNavigate();
-
-function formatPrice(value) {
-    const numsOnly = value.replace(/\D/g, '');
-    if (!numsOnly) return '';
-
-    const nums = numsOnly.replace(/^0+/, '') || '0';
-
-    if (nums.length === 1) return '0.0' + nums;
-    if (nums.length === 2) return '0.' + nums;
-    return `${nums.slice(0, -2)}.${nums.slice(-2)}`;
-}
 
   React.useEffect(() => {
     if (!isAuthenticated) {
@@ -53,12 +43,13 @@ function formatPrice(value) {
     await addProduct({
       name,
       description,
-      priceInReais: priceNumber,
+      price: priceNumber,
     });
 
     setName('');
     setDescription('');
     setPriceDisplay('');
+    setPriceRaw('');
     
     toast.success('Produto cadastrado com sucesso!');
     } catch (error) {
