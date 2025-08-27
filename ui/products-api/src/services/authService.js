@@ -1,4 +1,4 @@
-import api from '@/lib/api.js';
+import api from '../utils/api.js';
 
 export const loginUser = async (email, password) => {
   try {

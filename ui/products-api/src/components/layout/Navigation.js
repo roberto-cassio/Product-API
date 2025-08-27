@@ -1,6 +1,5 @@
-import React from 'react';
-import { useAuth } from '@/hooks';
-import { Button } from '@/components/ui';
+import { useAuth } from '../../hooks';
+import { Button } from '../../components/ui';
 import { Link, useLocation } from 'react-router-dom';
 import { ShoppingBag, Logout, Add } from '@mui/icons-material';
 
@@ -74,4 +73,4 @@ const Navigation = () => {
   );
 };
 
-export default Navigation;
+export { Navigation };

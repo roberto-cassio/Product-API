@@ -1,14 +1,14 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom'
-import Navigation from "@/components/layout"
+import { Navigation } from "./components/layout"
 import { ToastContainer } from 'react-toastify';
 
-import Home from '@/pages/Home';
-import Login from '@/pages/Login';
-import Register from '@/pages/Register';
-import Products from '@/pages/Products';
-import AddProduct from '@/pages/AddProduct';
-import NotFound from '@/pages/NotFound';
+import Home from './apps/Home';
+import Login from './apps/Login';
+import Register from './apps/Register';
+import Products from './apps/Products';
+import AddProduct from './apps/AddProduct';
+import NotFound from './apps/NotFound';
 
 function App() {
   return (

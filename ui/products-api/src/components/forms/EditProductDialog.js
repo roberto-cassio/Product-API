@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useProducts } from '@/contexts';
+import { useProducts } from '../../hooks';
 import {
   Dialog,
   DialogContent,
@@ -9,8 +9,8 @@ import {
   Input,
   Label,
   Textarea
-} from '@/components/ui';
-import { formatPrice } from '@/lib/utils';
+} from '../../components/ui';
+import { formatPrice } from '../../utils/utils';
 
 const EditProductDialog = ({
   product,
@@ -138,4 +138,4 @@ const EditProductDialog = ({
   );
 };
 
-export default EditProductDialog;
+export  { EditProductDialog };

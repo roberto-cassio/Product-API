@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth, useProducts } from '@/hooks';
-import { Button, Card, Input, Label, Textarea, CardContent, CardHeader, CardTitle } from '@/components/ui';
+import { useAuth, useProducts } from '../hooks';
+import { Button, Card, Input, Label, Textarea, CardContent, CardHeader, CardTitle } from '../components/ui';
 import { Add, ArrowBack } from '@mui/icons-material';
 import { toast } from 'react-toastify'
-import { formatPrice } from '@/lib/utils';
+import { formatPrice } from '../utils';
 
 const AddProduct = () => {
   const [name, setName] = useState('');
@@ -13,7 +13,7 @@ const AddProduct = () => {
   const [priceRaw, setPriceRaw] = useState('');
   const [loading, setLoading] = useState(false);
   const { addProduct } = useProducts();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated } = true;
 
 
   const navigate = useNavigate();

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '@/hooks';
-import { Input, Label, Button, Card, CardContent, CardHeader, CardTitle } from '@/components/ui';
+import { useAuth } from '../hooks';
+import { Input, Label, Button, Card, CardContent, CardHeader, CardTitle } from '../components/ui';
 import { Login as LoginIcon, Visibility, VisibilityOff } from '@mui/icons-material';
 import { toast } from 'react-toastify';
 

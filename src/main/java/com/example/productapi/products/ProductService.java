@@ -33,11 +33,9 @@ public class ProductService {
     }).orElseThrow(() -> new IllegalArgumentException("Product with ID " + id + " not found"));
   }
 
-  public Page<ProductResponseDto> getAllProducts() {
+  public Page<ProductResponseDto> getAllProducts(Pageable pageable) {
     Page<Product> products = productRepository.findAll(pageable);
-    return products.stream()
-            .map(ProductResponseDto::fromEntity)
-            .toList();
+    return products.map(ProductResponseDto::fromEntity);
   }
 
   public ProductResponseDto getProductByID(Long id) {

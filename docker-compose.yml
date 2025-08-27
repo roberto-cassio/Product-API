@@ -1,6 +1,8 @@
 services:
   backend:
     build: .
+    #Add this line for Mac/OS M1/M2 Chips
+    #platform: linux/amd64
     ports:
       - "8080:8080"
     environment:
@@ -9,6 +11,7 @@ services:
       - SPRING_DATASOURCE_USERNAME=sa
       - SPRING_DATASOURCE_PASSWORD=
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SECURITY_JWT_SECRET_KEY=algumasecretkeysegura
     depends_on:
       - db
     networks:
@@ -16,6 +19,8 @@ services:
 
   frontend:
     build: ./ui/products-api
+    platform: linux/amd64
+
     ports:
       - "3000:80"
     depends_on:
