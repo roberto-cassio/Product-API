@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useProducts } from '../../hooks';
+import { useContext } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -11,6 +11,8 @@ import {
   Textarea
 } from '../../components/ui';
 import { formatPrice } from '../../utils/utils';
+import { ProductContext } from '../../contexts';
+import { toast } from 'react-toastify'
 
 const EditProductDialog = ({
   product,
@@ -22,7 +24,7 @@ const EditProductDialog = ({
   const [priceDisplay, setPriceDisplay] = useState('');
   const [priceRaw, setPriceRaw] = useState('');
   const [loading, setLoading] = useState(false);
-  const { editProduct } = useProducts();
+  const { updateProducts } =useContext(ProductContext);
 
   useEffect(() => {
     if (product) {
@@ -46,23 +48,25 @@ const EditProductDialog = ({
       setLoading(false);
       return;
     }
-
-    editProduct(product.id, {
+    try {  
+    await updateProducts(product.id, {
       name,
       description,
       price: priceNumber,
     });
-
+    toast.success('Produto atualizado com sucesso');
+  } catch(error) {
+    toast.error('Erro ao atualizar produto.');
+  }
     setLoading(false);
     onOpenChange(false);
   };
 
   const handleClose = () => {
     onOpenChange(false);
-    setName('');
-    setDescription('');
-    setPriceDisplay('');
-    setPriceRaw('');
+    if (!product) {
+      return null;
+    }
   };
 
   return (

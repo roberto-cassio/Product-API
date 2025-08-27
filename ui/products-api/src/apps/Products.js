@@ -5,7 +5,7 @@ import Skeleton from '@mui/material/Skeleton';
 import { ShoppingBag, Delete, Edit } from '@mui/icons-material';
 import { toast} from 'react-toastify'
 import { Pagination } from '@mui/material';
-import {EditProductDialog} from '../components/forms';
+import { EditProductDialog } from '../components/forms';
 
 const Products = () => {
   const { 
@@ -99,12 +99,12 @@ const Products = () => {
                 
                 <div className="flex items-center justify-between">
                   <div className="text-2xl font-bold text-primary">
-                    R$ {product.priceInReais.toFixed(2).replace('.', ',')}
+                    R$ {product.priceInReais != null ? product.priceInReais.toFixed(2).replace('.', ',') : 'Preço Inválido'}
                   </div>
                   <div className="text-2xl font-bold text-primary">
                     <Edit 
                       fontsize="inherit" 
-                      className={`${isAuthenticated ? "text-green-500 cursor-pointer" : "text-gray-400 cursor-not-allowed"}`}
+                      className={`${isAuthenticated ? "text-purple-500 cursor-pointer" : "text-gray-400 cursor-not-allowed"}`}
                       onClick={() => isAuthenticated && handleEditProduct(product)}
                     />
                     <Delete 
@@ -118,14 +118,12 @@ const Products = () => {
             ))}
           </div>
         )}
-        
-        {/* Paginação - só aparece se houver mais de uma página */}
         {totalElements > size && (
           <div className="flex justify-center mt-12">
             <Pagination 
               count={Math.ceil(totalElements / size)} 
               page={currentPage + 1}
-              onChange={(event, page) => handlePageChange(page - 1)}
+              onChange={(_, page) => handlePageChange(page - 1)}
               color="primary"
               size="large"
               showFirstButton 
