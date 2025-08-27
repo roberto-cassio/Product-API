@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth, useProducts } from '@/contexts';
+import { useAuth, useProducts } from '@/hooks';
 import { Button, Card, Input, Label, Textarea, CardContent, CardHeader, CardTitle } from '@/components/ui';
 import { Add, ArrowBack } from '@mui/icons-material';
 import { toast } from 'react-toastify'

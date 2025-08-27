@@ -1,5 +1,5 @@
 import React from 'react';
-import { useProducts, useAuth } from '@/contexts';
+import { useProducts, useAuth } from '@/hooks';
 import Card  from '@mui/material/Card';
 import Skeleton from '@mui/material/Skeleton';
 import { ShoppingBag, Delete, Edit } from '@mui/icons-material';

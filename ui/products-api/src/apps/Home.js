@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ShoppingBag, Person, Add, ArrowForward } from '@mui/icons-material';
-import { useAuth } from '@/contexts';
+import { useAuth } from '@/hooks';
 
 const Home = () => {
   const  { isAuthenticated }  = useAuth();
