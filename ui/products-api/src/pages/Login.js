@@ -1,12 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '../components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
-import { Input } from '../components/ui/input';
-import { Label } from '../components/ui/label';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '@/contexts';
+import { Input, Label, Button, Card, CardContent, CardHeader, CardTitle } from '@/components/ui';
 import { Login as LoginIcon, Visibility, VisibilityOff } from '@mui/icons-material';
-import {toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 const Login = () => {
   const [email, setEmail] = useState('');

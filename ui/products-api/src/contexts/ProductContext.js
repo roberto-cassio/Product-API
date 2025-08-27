@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { fetchProducts, createProduct, updateProduct, deleteProduct as deleteProductService } from '../services/productService';
+import { fetchProducts, createProduct, updateProduct, deleteProduct as deleteProductService } from '@/services/productService';
 import { toast} from 'react-toastify'
 
 

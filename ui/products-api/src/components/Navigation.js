@@ -1,8 +1,8 @@
 import React from 'react';
-import { useAuth } from '../contexts/AuthContext';
-import { Button } from './ui/button'
+import { useAuth } from '@/contexts';
+import { Button } from '@/components/ui';
 import { Link, useLocation } from 'react-router-dom';
-import { ShoppingBag, Logout, Person, Add } from '@mui/icons-material';
+import { ShoppingBag, Logout, Add } from '@mui/icons-material';
 
 const Navigation = () => {
   const location = useLocation();

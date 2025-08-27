@@ -1,8 +1,6 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from '@mui/material/Button'
 import { ShoppingBag, Person, Add, ArrowForward } from '@mui/icons-material';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '@/contexts';
 
 const Home = () => {
   const  { isAuthenticated }  = useAuth();
@@ -10,7 +8,6 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        {/* Hero Section */}
         <div className="text-center mb-16">
           <h1 className="text-5xl font-bold text-foreground mb-6 leading-tight">
             Bem-vindo à
@@ -24,7 +21,6 @@ const Home = () => {
           </p>
         </div>
 
-        {/* Action Cards */}
         <div className="grid md:grid-cols-3 gap-8 mb-16">
           <Link to="/products" className="block">
             <div className="card-product text-center group cursor-pointer">
@@ -91,7 +87,6 @@ const Home = () => {
           )}
         </div>
 
-        {/* Features */}
         <div className="text-center">
           <h2 className="text-2xl font-bold mb-8 text-foreground">Por que escolher nossa loja?</h2>
           <div className="grid md:grid-cols-3 gap-6">

@@ -1,12 +1,11 @@
 import React from 'react';
-import { useProducts } from '../contexts/ProductContext';
+import { useProducts, useAuth } from '@/contexts';
 import Card  from '@mui/material/Card';
 import Skeleton from '@mui/material/Skeleton';
 import { ShoppingBag, Delete, Edit } from '@mui/icons-material';
-import { useAuth } from '../contexts/AuthContext';
 import { toast} from 'react-toastify'
 import { Pagination } from '@mui/material';
-import EditProductDialog from '../components/EditProductDialog';
+import EditProductDialog from '@/components/EditProductDialog';
 
 const Products = () => {
   const { 

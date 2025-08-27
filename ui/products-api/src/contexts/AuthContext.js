@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { loginUser, signupUser} from '../services/authService';
+import { loginUser, signupUser} from '@/services/authService';
 import { toast } from 'react-toastify';
 
 

@@ -1,4 +1,4 @@
-import api from '../lib/api.js';
+import api from '@/lib/api.js';
 
 export const fetchProducts = async (page = 0, size= 6) => {
     try {
