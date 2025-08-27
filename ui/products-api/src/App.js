@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom'
-import Navigation from "@/components/Navigation"
+import Navigation from "@/components/layout"
 import { ToastContainer } from 'react-toastify';
 
 import Home from '@/pages/Home';
