@@ -6,7 +6,7 @@ import { ShoppingBag, Delete, Edit } from '@mui/icons-material';
 import { useAuth } from '../contexts/AuthContext';
 import { toast} from 'react-toastify'
 import { Pagination } from '@mui/material';
-import EditProductDialog from '../components/EditProdutDialog';
+import EditProductDialog from '../components/EditProductDialog';
 
 const Products = () => {
   const { 
